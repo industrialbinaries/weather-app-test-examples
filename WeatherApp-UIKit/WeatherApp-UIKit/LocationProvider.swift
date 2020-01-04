@@ -1,0 +1,85 @@
+//
+//  LocationProvider.swift
+//  WeatherApp-UIKit
+//
+//  Created by Vojta on 04/01/2020.
+//  Copyright © 2020 Industrial Binaries. All rights reserved.
+//
+
+import CoreLocation
+import RxSwift
+
+typealias Coordinates = CLLocationCoordinate2D
+
+extension Coordinates: Equatable {
+  public static func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
+    lhs.longitude == rhs.longitude && lhs.latitude == rhs.latitude
+  }
+}
+
+extension LocationProvider {
+  enum State {
+    case loading
+    case location(Coordinates)
+    case error(Error)
+  }
+
+  struct LocationServicesNotAllowed: Error {
+    let localizedDescription = "User didn't allow location services."
+  }
+}
+
+extension LocationProvider.State: Equatable {
+  static func == (lhs: LocationProvider.State, rhs: LocationProvider.State) -> Bool {
+    switch (lhs, rhs) {
+    case (.loading, .loading): return true
+    case let (.location(l), .location(r)): return l == r
+    case let (.error(l), .error(r)):
+      return l.localizedDescription == r.localizedDescription
+    default: return false
+    }
+  }
+}
+
+class LocationProvider: NSObject {
+
+  /// The shared location provider for this app
+  static let shared = LocationProvider()
+
+  var currentLocation: Observable<State> { _currentLocation }
+
+  init(locationManager: CLLocationManager = .init()) {
+    self.locationManager = locationManager
+
+    super.init()
+
+    locationManager.delegate = self
+    locationManager.requestWhenInUseAuthorization()
+  }
+
+  private let _currentLocation: BehaviorSubject<State> = .init(value: .loading)
+  private let locationManager: CLLocationManager
+}
+
+extension LocationProvider: CLLocationManagerDelegate {
+
+  func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+    _currentLocation.onNext(.error(error))
+  }
+
+  func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+    switch status {
+    case .authorizedAlways, .authorizedWhenInUse:
+      manager.startMonitoringSignificantLocationChanges()
+    case .notDetermined:
+      break // User is presented with the system alert
+    default:
+      _currentLocation.onNext(.error(LocationServicesNotAllowed()))
+    }
+  }
+
+  func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    guard let location = locations.first else { return }
+    _currentLocation.onNext(.location(location.coordinate))
+  }
+}
