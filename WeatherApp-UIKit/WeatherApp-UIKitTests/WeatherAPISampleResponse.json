@@ -1,0 +1,43 @@
+{
+  "coord": {
+    "lon": 14,
+    "lat": 50
+  },
+  "weather": [
+    {
+      "id": 803,
+      "main": "Clouds",
+      "description": "broken clouds",
+      "icon": "04d"
+    }
+  ],
+  "base": "stations",
+  "main": {
+    "temp": 3.72,
+    "feels_like": -4.07,
+    "temp_min": 2.22,
+    "temp_max": 5.56,
+    "pressure": 1021,
+    "humidity": 74
+  },
+  "visibility": 10000,
+  "wind": {
+    "speed": 8.2,
+    "deg": 250
+  },
+  "clouds": {
+    "all": 75
+  },
+  "dt": 1578143905,
+  "sys": {
+    "type": 1,
+    "id": 6848,
+    "country": "CZ",
+    "sunrise": 1578121330,
+    "sunset": 1578150886
+  },
+  "timezone": 3600,
+  "id": 3069738,
+  "name": "Nizbor",
+  "cod": 200
+}
