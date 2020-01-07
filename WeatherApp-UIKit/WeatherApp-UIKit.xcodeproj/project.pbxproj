@@ -23,9 +23,11 @@
 		793A7CF523C0F622007D8150 /* WeatherAPISampleResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 793A7CF423C0F622007D8150 /* WeatherAPISampleResponse.json */; };
 		793A7CF723C0FE33007D8150 /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793A7CF623C0FE33007D8150 /* WeatherViewModel.swift */; };
 		793A7CF923C10AD8007D8150 /* WeatherViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793A7CF823C10AD8007D8150 /* WeatherViewModelTests.swift */; };
-		798983BD23C0BC350019E1CB /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = 798983BC23C0BC350019E1CB /* RxBlocking */; };
-		798983BF23C0BC350019E1CB /* RxTest in Frameworks */ = {isa = PBXBuildFile; productRef = 798983BE23C0BC350019E1CB /* RxTest */; };
 		798983C123C0C1B10019E1CB /* WeatherAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798983C023C0C1B10019E1CB /* WeatherAPI.swift */; };
+		79E0DBB223C4C06F00B2923C /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = 79E0DBB123C4C06F00B2923C /* RxBlocking */; };
+		79E0DBB423C4C06F00B2923C /* RxTest in Frameworks */ = {isa = PBXBuildFile; productRef = 79E0DBB323C4C06F00B2923C /* RxTest */; };
+		79E0DBB623C4C47B00B2923C /* ViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E0DBB523C4C47B00B2923C /* ViewControllerTests.swift */; };
+		79E0DBBB23C4CB9400B2923C /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 79E0DBBA23C4CB9400B2923C /* SnapshotTesting */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,7 @@
 		793A7CF623C0FE33007D8150 /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
 		793A7CF823C10AD8007D8150 /* WeatherViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModelTests.swift; sourceTree = "<group>"; };
 		798983C023C0C1B10019E1CB /* WeatherAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAPI.swift; sourceTree = "<group>"; };
+		79E0DBB523C4C47B00B2923C /* ViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79E0DBBB23C4CB9400B2923C /* SnapshotTesting in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,9 +75,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				798983BF23C0BC350019E1CB /* RxTest in Frameworks */,
+				79E0DBB423C4C06F00B2923C /* RxTest in Frameworks */,
 				7903355A23C0A3E300032986 /* RxRelay in Frameworks */,
-				798983BD23C0BC350019E1CB /* RxBlocking in Frameworks */,
+				79E0DBB223C4C06F00B2923C /* RxBlocking in Frameworks */,
 				7903355C23C0A3E300032986 /* RxCocoa in Frameworks */,
 				7903355623C0A3E300032986 /* RxSwift in Frameworks */,
 			);
@@ -123,14 +127,15 @@
 			children = (
 				7930351B23C0A2E5000D931E /* AppDelegate.swift */,
 				7930351D23C0A2E5000D931E /* SceneDelegate.swift */,
+				7930352123C0A2E5000D931E /* Main.storyboard */,
 				7930351F23C0A2E5000D931E /* ViewController.swift */,
+				79E0DBB523C4C47B00B2923C /* ViewControllerTests.swift */,
 				793A7CF623C0FE33007D8150 /* WeatherViewModel.swift */,
 				793A7CF823C10AD8007D8150 /* WeatherViewModelTests.swift */,
 				7903355F23C0A57B00032986 /* LocationProvider.swift */,
 				7903358223C0B24F00032986 /* LocationProviderTests.swift */,
 				798983C023C0C1B10019E1CB /* WeatherAPI.swift */,
 				793A7CF023C0EDCB007D8150 /* WeatherAPITests.swift */,
-				7930352123C0A2E5000D931E /* Main.storyboard */,
 				7930352423C0A2E6000D931E /* Assets.xcassets */,
 				7930352623C0A2E6000D931E /* LaunchScreen.storyboard */,
 				7930352923C0A2E6000D931E /* Info.plist */,
@@ -161,6 +166,7 @@
 			);
 			name = "WeatherApp-UIKitTests";
 			packageProductDependencies = (
+				79E0DBBA23C4CB9400B2923C /* SnapshotTesting */,
 			);
 			productName = "WeatherApp-UIKitTests";
 			productReference = 7903357823C0B23E00032986 /* WeatherApp-UIKitTests.xctest */;
@@ -183,8 +189,8 @@
 				7903355523C0A3E300032986 /* RxSwift */,
 				7903355923C0A3E300032986 /* RxRelay */,
 				7903355B23C0A3E300032986 /* RxCocoa */,
-				798983BC23C0BC350019E1CB /* RxBlocking */,
-				798983BE23C0BC350019E1CB /* RxTest */,
+				79E0DBB123C4C06F00B2923C /* RxBlocking */,
+				79E0DBB323C4C06F00B2923C /* RxTest */,
 			);
 			productName = "WeatherApp-UIKit";
 			productReference = 7930351823C0A2E5000D931E /* WeatherApp-UIKit.app */;
@@ -220,6 +226,7 @@
 			mainGroup = 7930350F23C0A2E5000D931E;
 			packageReferences = (
 				7903355423C0A3E300032986 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				79E0DBB923C4CB9400B2923C /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
 			);
 			productRefGroup = 7930351923C0A2E5000D931E /* Products */;
 			projectDirPath = "";
@@ -257,6 +264,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79E0DBB623C4C47B00B2923C /* ViewControllerTests.swift in Sources */,
 				7903358323C0B24F00032986 /* LocationProviderTests.swift in Sources */,
 				793A7CF923C10AD8007D8150 /* WeatherViewModelTests.swift in Sources */,
 				793A7CF123C0EDCB007D8150 /* WeatherAPITests.swift in Sources */,
@@ -562,6 +570,14 @@
 				minimumVersion = 5.0.1;
 			};
 		};
+		79E0DBB923C4CB9400B2923C /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.7.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -605,15 +621,20 @@
 			package = 7903355423C0A3E300032986 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxTest;
 		};
-		798983BC23C0BC350019E1CB /* RxBlocking */ = {
+		79E0DBB123C4C06F00B2923C /* RxBlocking */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 7903355423C0A3E300032986 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxBlocking;
 		};
-		798983BE23C0BC350019E1CB /* RxTest */ = {
+		79E0DBB323C4C06F00B2923C /* RxTest */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 7903355423C0A3E300032986 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxTest;
+		};
+		79E0DBBA23C4CB9400B2923C /* SnapshotTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 79E0DBB923C4CB9400B2923C /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
+			productName = SnapshotTesting;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
