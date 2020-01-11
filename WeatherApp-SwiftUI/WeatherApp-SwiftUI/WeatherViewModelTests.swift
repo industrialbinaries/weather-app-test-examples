@@ -7,18 +7,17 @@
 
 @testable import WeatherApp_SwiftUI
 
-import RxCocoa
-import RxSwift
-import RxTest
+import Combine
+import CombineTestExtensions
 import XCTest
 
-class WeatherViewModelTests: XCTestCase {
-  // MARK: - Setup
+// MARK: - Setup
 
+class WeatherViewModelTests: XCTestCase {
   struct MockError: Error {}
 
   var scheduler: TestScheduler!
-  var disposeBag: DisposeBag!
+  var cancellables: [AnyCancellable]!
 
   let mockLocations: [Coordinates] = [
     .init(latitude: 1, longitude: 1),
@@ -28,102 +27,111 @@ class WeatherViewModelTests: XCTestCase {
 
   let locale = Locale(identifier: "cs")
 
-  let mockApi: WeatherViewModel.API = { _ in .never() }
+  let mockApi: WeatherViewModel.API = { _ in Empty(completeImmediately: false).eraseToAnyPublisher() }
 
   override func setUp() {
     super.setUp()
-    scheduler = .init(initialClock: 0)
-    disposeBag = .init()
+    scheduler = .init()
+    cancellables = []
   }
+}
 
-  // MARK: - Tests
+// MARK: - Tests
 
+extension WeatherViewModelTests {
   func testLocationCoordinatesArePropagatedCorrectly() {
-    let location = locationObservable(with: [
-      .init(time: 100, value: .next(.location(mockLocations[0]))),
-      .init(time: 200, value: .next(.location(mockLocations[1]))),
-      .init(time: 300, value: .next(.location(mockLocations[2]))),
-    ])
+    let location: AnyPublisher<LocationProvider.State, Never> = TestPublisher(scheduler, [
+      (100, .value(.location(mockLocations[0]))),
+      (200, .value(.location(mockLocations[1]))),
+      (300, .value(.location(mockLocations[2]))),
+    ]).eraseToAnyPublisher()
 
     var recordedLocations: [Coordinates] = []
     let api: WeatherViewModel.API = {
       recordedLocations.append($0)
-      return .just(.mock)
+      return Just<Weather>(.mock).setFailureType(to: Error.self).eraseToAnyPublisher()
     }
 
     let sut = WeatherViewModel(weatherAPI: api, currentLocation: location)
-    let result = scheduler.createObserver(WeatherViewModelState.self)
-    sut.state.drive(result).disposed(by: disposeBag)
 
-    scheduler.start()
+    _ = sut.$state
+      .record(scheduler: scheduler, numberOfRecords: 3)
+      .waitForRecords()
 
     XCTAssertEqual(recordedLocations, mockLocations)
   }
 
   func testErrorIsPropagated() {
-    let location = locationObservable(with: [
-      .init(time: 0, value: .next(.loading)),
-      .init(time: 100, value: .next(.error(MockError()))),
-    ])
+    let location: AnyPublisher<LocationProvider.State, Never> = TestPublisher(scheduler, [
+      (0, .value(.location(mockLocations[0]))),
+      (100, .value(.error(MockError()))),
+    ]).eraseToAnyPublisher()
 
     let sut = WeatherViewModel(weatherAPI: mockApi, locale: locale, currentLocation: location)
-    let result = runAndObserve(sut.state)
+    let result = sut.$state
+      .record(scheduler: scheduler, numberOfRecords: 2)
+      .waitAndCollectTimedRecords()
 
-    XCTAssertEqual(result.events, [
-      .init(time: 0, value: .next(.loading)),
-      .init(time: 100, value: .next(.error)),
+    XCTAssertEqual(result, [
+      (0, .value(.loading)),
+      (100, .value(.error)),
     ])
   }
 
   func testLoadingIsPropagated() {
-    let location = locationObservable(with: [
-      .init(time: 0, value: .next(.location(mockLocations[0]))),
-    ])
+    let location: AnyPublisher<LocationProvider.State, Never> = TestPublisher(scheduler, [
+      (0, .value(.location(mockLocations[0]))),
+    ]).eraseToAnyPublisher()
 
     let api: WeatherViewModel.API = { _ in
-      self.scheduler
-        .createColdObservable([.next(500, Weather.mock), .completed(500)])
-        .asObservable()
+      TestPublisher(self.scheduler, [(500, .value(Weather.mock))]).eraseToAnyPublisher()
     }
 
     let sut = WeatherViewModel(weatherAPI: api, locale: locale, currentLocation: location)
-    let result = runAndObserve(sut.state)
+    let result = sut.$state
+      .record(scheduler: scheduler, numberOfRecords: 2)
+      .waitAndCollectTimedRecords()
 
-    XCTAssertEqual(result.events,
-                   [
-                     .init(time: 0, value: .next(.loading)),
-                     .init(time: 500, value: .next(.loadedMock)),
-                   ])
+    XCTAssertEqual(result, [
+      (0, .value(.loading)),
+      (500, .value(.loadedMock)),
+    ])
   }
 
   func testSuccess() {
-    let location = locationObservable(with: [
-      .init(time: 0, value: .next(.loading)),
-      .init(time: 100, value: .next(.location(mockLocations[0]))),
-    ])
+    let location: AnyPublisher<LocationProvider.State, Never> = TestPublisher(scheduler,
+                                                                              [
+                                                                                (0, .value(.loading)),
+                                                                                (100, .value(.location(mockLocations[0]))),
+                                                                              ]).eraseToAnyPublisher()
 
     let api: WeatherViewModel.API = { _ in
-      self.scheduler
-        .createColdObservable([.init(time: 100, value: .next(Weather.mock))])
-        .asObservable()
+      TestPublisher(self.scheduler, [(200, .value(Weather.mock))]).eraseToAnyPublisher()
     }
 
     let sut = WeatherViewModel(weatherAPI: api, locale: locale, currentLocation: location)
-    let result = runAndObserve(sut.state)
+    let result = sut.$state
+      .record(scheduler: scheduler, numberOfRecords: 2)
+      .waitAndCollectTimedRecords()
 
-    XCTAssertEqual(result.events, [
-      .init(time: 0, value: .next(.loading)),
-      .init(time: 100, value: .next(.loading)),
-      .init(time: 200, value: .next(.loadedMock)),
+    XCTAssertEqual(result, [
+      (0, .value(.loading)),
+      (200, .value(.loadedMock)),
     ])
   }
 
   func testLikeDislikeButtonsPress() {
-    let location = locationObservable(with: [
-      .init(time: 0, value: .next(.location(mockLocations[0]))),
-    ])
+    let location: AnyPublisher<LocationProvider.State, Never> = TestPublisher(scheduler, [
+      (100, .value(.location(mockLocations[0]))),
+      (200, .value(.location(mockLocations[1]))),
+      (300, .value(.location(mockLocations[2]))),
+    ]).eraseToAnyPublisher()
 
-    let api: WeatherViewModel.API = { _ in .just(.mock) }
+    var recordedLocations: [Coordinates] = []
+    let api: WeatherViewModel.API = {
+      recordedLocations.append($0)
+      return Just<Weather>(.mock).setFailureType(to: Error.self).eraseToAnyPublisher()
+    }
 
     var likedWeather: Weather?
     var dislikedWeather: Weather?
@@ -134,43 +142,26 @@ class WeatherViewModelTests: XCTestCase {
 
     let sut = WeatherViewModel(weatherAPI: api, storage: storage, locale: locale, currentLocation: location)
 
-    let likeButtonTap = scheduler
-      .createColdObservable([.next(100, ())])
-      .asDriver(onErrorJustReturn: ())
+    let likeButtonTap: AnyPublisher<Void, Never> = TestPublisher(scheduler, [
+      (100, .value(())),
+    ]).eraseToAnyPublisher()
+
+    let dislikeButtonTap: AnyPublisher<Void, Never> = TestPublisher(scheduler, [
+      (200, .value(())),
+    ]).eraseToAnyPublisher()
 
     likeButtonTap
-      .drive(sut.likeButtonTapped)
-      .disposed(by: disposeBag)
-
-    let dislikeButtonTap = scheduler
-      .createColdObservable([.next(200, ())])
-      .asDriver(onErrorJustReturn: ())
+      .subscribe(sut.likeButtonTapped)
+      .store(in: &cancellables)
 
     dislikeButtonTap
-      .drive(sut.dislikeButtonTapped)
-      .disposed(by: disposeBag)
+      .subscribe(sut.dislikeButtonTapped)
+      .store(in: &cancellables)
 
-    scheduler.start()
+    scheduler.resume()
 
     XCTAssertEqual(likedWeather, Weather.mock)
     XCTAssertEqual(dislikedWeather, Weather.mock)
-  }
-}
-
-extension WeatherViewModelTests {
-  func locationObservable(
-    with events: [Recorded<Event<LocationProvider.State>>]
-  ) -> Observable<LocationProvider.State> {
-    return scheduler
-      .createColdObservable(events)
-      .asObservable()
-  }
-
-  func runAndObserve<T>(_ sut: Driver<T>) -> TestableObserver<T> {
-    defer { scheduler.start() }
-    let result = scheduler.createObserver(T.self)
-    sut.drive(result).disposed(by: disposeBag)
-    return result
   }
 }
 
@@ -183,8 +174,8 @@ extension Weather {
   )
 }
 
-extension WeatherViewModelState {
-  static let loadedMock: WeatherViewModelState = .loaded(
+extension WeatherViewModel.State {
+  static let loadedMock: WeatherViewModel.State = .loaded(
     weatherDescription: "Mock weather",
     temperature: "15,1\u{00a0}°C",
     icon: "☀️",

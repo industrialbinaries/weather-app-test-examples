@@ -5,25 +5,27 @@
 //  MIT license, see LICENSE file for details
 //
 
-import CoreLocation
-import RxCocoa
-import RxSwift
+import Combine
+import Foundation
 
-typealias IconAssetName = String
+extension WeatherViewModel {
+  typealias API = (Coordinates) -> AnyPublisher<Weather, Error>
+  typealias Storage = (Weather, _ liked: Bool) -> Void
 
-enum WeatherViewModelState: Equatable {
-  case loading
-  case loaded(
-    weatherDescription: String,
-    temperature: String,
-    icon: String,
-    location: String
-  )
-  case error
+  enum State: Equatable {
+    case loading
+    case loaded(
+      weatherDescription: String,
+      temperature: String,
+      icon: String,
+      location: String
+    )
+    case error
+  }
 }
 
-extension WeatherViewModelState {
-  init(weather: Weather, locale: Locale) {
+extension WeatherViewModel.State {
+  init(loadedWith weather: Weather, locale: Locale) {
     let formatter = MeasurementFormatter()
     formatter.locale = locale
     formatter.numberFormatter.maximumFractionDigits = 1
@@ -40,39 +42,26 @@ extension WeatherViewModelState {
   }
 }
 
-protocol WeatherViewModelType {
+class WeatherViewModel: ObservableObject {
   // Outputs
-  var state: Driver<WeatherViewModelState> { get }
+  @Published fileprivate(set) var state: State = .loading
 
   // Inputs
-  var likeButtonTapped: PublishSubject<Void> { get }
-  var dislikeButtonTapped: PublishSubject<Void> { get }
-}
-
-struct WeatherViewModel: WeatherViewModelType {
-  typealias API = (CLLocationCoordinate2D) -> Observable<Weather>
-  typealias Storage = (Weather, _ liked: Bool) -> Void
-
-  // Outputs
-  let state: Driver<WeatherViewModelState>
-
-  // Inputs
-  let likeButtonTapped: PublishSubject<Void> = .init()
-  let dislikeButtonTapped: PublishSubject<Void> = .init()
+  let likeButtonTapped: PassthroughSubject<Void, Never> = .init()
+  let dislikeButtonTapped: PassthroughSubject<Void, Never> = .init()
 
   init(
-    weatherAPI: @escaping API = WeatherAPI.loadWeatherData,
-    storage: @escaping Storage = { _, _ in },
+    weatherAPI: @escaping API = WeatherAPI.loadWeatherData_,
+    storage: @escaping Storage = { print($0, $1) },
     locale: Locale = .current,
-    currentLocation: Observable<LocationProvider.State>
+    currentLocation: AnyPublisher<LocationProvider.State, Never>
   ) {
-    let currentLocation = currentLocation.share()
-
-    let weather: Observable<Weather> = currentLocation
-      .flatMap { location -> Observable<Weather> in
+    let weather = currentLocation
+      .setFailureType(to: Error.self)
+      .flatMap { location -> AnyPublisher<Weather, Error> in
         switch location {
         case .loading, .error:
-          return Observable.never()
+          return Empty(completeImmediately: false).eraseToAnyPublisher()
 
         case let .location(location):
           return weatherAPI(location)
@@ -81,19 +70,21 @@ struct WeatherViewModel: WeatherViewModelType {
       .share()
 
     likeButtonTapped
-      .withLatestFrom(weather)
-      .map { ($0, liked: true) }
-      .subscribe(onNext: storage)
-      .disposed(by: disposeBag)
+      .setFailureType(to: Error.self)
+      .combineLatest(weather)
+      .map { ($0.1, liked: true) }
+      .sink(receiveCompletion: { _ in }, receiveValue: { storage($0, $1) })
+      .store(in: &cancellables)
 
     dislikeButtonTapped
-      .withLatestFrom(weather)
-      .map { ($0, liked: false) }
-      .subscribe(onNext: storage)
-      .disposed(by: disposeBag)
+      .setFailureType(to: Error.self)
+      .combineLatest(weather)
+      .map { ($0.1, liked: false) }
+      .sink(receiveCompletion: { _ in }, receiveValue: { storage($0, $1) })
+      .store(in: &cancellables)
 
-    let loadingAndError: Observable<WeatherViewModelState> = currentLocation
-      .map { location in
+    let loadingAndError = currentLocation
+      .map { location -> State in
         switch location {
         case .error: return .error
 
@@ -104,11 +95,43 @@ struct WeatherViewModel: WeatherViewModelType {
         }
       }
 
-    state = Observable.merge(
-      loadingAndError,
-      weather.map { WeatherViewModelState(weather: $0, locale: locale) }
-    ).asDriver(onErrorJustReturn: .error)
+    Publishers
+      .Merge(
+        loadingAndError,
+        weather
+          .map { State(loadedWith: $0, locale: locale) }
+          .replaceError(with: .error)
+      )
+      .receive(on: scheduler)
+      .removeDuplicates()
+      .dropFirst() // The first `.loading` comes from the initial value of `state`
+      .assign(to: \.state, on: self)
+      .store(in: &cancellables)
   }
 
-  private let disposeBag = DisposeBag()
+  fileprivate var scheduler: DispatchQueue { .main }
+  private var cancellables: [AnyCancellable] = []
 }
+
+// MARK: - Mocks
+
+#if canImport(XCTest)
+
+  /// A WeatherViewModel subclass used for mocking in tests.
+  ///
+  /// It doesn't react to inputs and allows setting the output state manually
+  /// using the `set(state: State)` method.
+
+  class TestViewModel: WeatherViewModel {
+    /// Changes the value of the `state` property.
+    func set(state: State) {
+      self.state = state
+    }
+
+    init() {
+      super.init(currentLocation: Empty(completeImmediately: false).eraseToAnyPublisher())
+    }
+
+    fileprivate override var scheduler: DispatchQueue { .init(label: "Test scheduler (inactive)") }
+  }
+#endif
