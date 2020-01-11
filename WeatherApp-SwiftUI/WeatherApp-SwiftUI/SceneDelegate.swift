@@ -5,7 +5,7 @@
 //  MIT license, see LICENSE file for details
 //
 
-import UIKit
+import SwiftUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   var window: UIWindow?
@@ -19,10 +19,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     let window = UIWindow(windowScene: windowScene)
 
-    let rootVC = UIStoryboard(name: "Main", bundle: nil)
-      .instantiateInitialViewController() as! ViewController
-    rootVC.viewModel = WeatherViewModel(currentLocation: LocationProvider.shared.currentLocation)
+    let viewModel = WeatherViewModel(currentLocation: LocationProvider.shared.currentLocation)
 
+    let rootVC = UIHostingController(rootView: WeatherView(viewModel: viewModel))
     window.rootViewController = rootVC
     window.makeKeyAndVisible()
 
