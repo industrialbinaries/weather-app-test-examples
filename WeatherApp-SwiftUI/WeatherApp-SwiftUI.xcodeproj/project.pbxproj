@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7903355623C0A3E300032986 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7903355523C0A3E300032986 /* RxSwift */; };
-		7903355A23C0A3E300032986 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 7903355923C0A3E300032986 /* RxRelay */; };
-		7903355C23C0A3E300032986 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 7903355B23C0A3E300032986 /* RxCocoa */; };
 		7903356023C0A57B00032986 /* LocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7903355F23C0A57B00032986 /* LocationProvider.swift */; };
 		7903358323C0B24F00032986 /* LocationProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7903358223C0B24F00032986 /* LocationProviderTests.swift */; };
 		7930351C23C0A2E5000D931E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7930351B23C0A2E5000D931E /* AppDelegate.swift */; };
@@ -73,9 +70,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7903355A23C0A3E300032986 /* RxRelay in Frameworks */,
-				7903355C23C0A3E300032986 /* RxCocoa in Frameworks */,
-				7903355623C0A3E300032986 /* RxSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,11 +147,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				798983AB23C0BBB40019E1CB /* PBXTargetDependency */,
-				798983AD23C0BBB40019E1CB /* PBXTargetDependency */,
-				798983AF23C0BBB40019E1CB /* PBXTargetDependency */,
-				798983B123C0BBB40019E1CB /* PBXTargetDependency */,
-				798983A923C0BBAA0019E1CB /* PBXTargetDependency */,
 				7903357E23C0B23E00032986 /* PBXTargetDependency */,
 			);
 			name = "WeatherApp-SwiftUITests";
@@ -182,9 +171,6 @@
 			);
 			name = "WeatherApp-SwiftUI";
 			packageProductDependencies = (
-				7903355523C0A3E300032986 /* RxSwift */,
-				7903355923C0A3E300032986 /* RxRelay */,
-				7903355B23C0A3E300032986 /* RxCocoa */,
 			);
 			productName = "WeatherApp-UIKit";
 			productReference = 7930351823C0A2E5000D931E /* WeatherApp-SwiftUI.app */;
@@ -219,7 +205,6 @@
 			);
 			mainGroup = 7930350F23C0A2E5000D931E;
 			packageReferences = (
-				7903355423C0A3E300032986 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				79E0DBB923C4CB9400B2923C /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
 			);
 			productRefGroup = 7930351923C0A2E5000D931E /* Products */;
@@ -286,26 +271,6 @@
 			isa = PBXTargetDependency;
 			target = 7930351723C0A2E5000D931E /* WeatherApp-SwiftUI */;
 			targetProxy = 7903357D23C0B23E00032986 /* PBXContainerItemProxy */;
-		};
-		798983A923C0BBAA0019E1CB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = 798983A823C0BBAA0019E1CB /* RxSwift */;
-		};
-		798983AB23C0BBB40019E1CB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = 798983AA23C0BBB40019E1CB /* RxBlocking */;
-		};
-		798983AD23C0BBB40019E1CB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = 798983AC23C0BBB40019E1CB /* RxCocoa */;
-		};
-		798983AF23C0BBB40019E1CB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = 798983AE23C0BBB40019E1CB /* RxRelay */;
-		};
-		798983B123C0BBB40019E1CB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = 798983B023C0BBB40019E1CB /* RxTest */;
 		};
 /* End PBXTargetDependency section */
 
@@ -556,12 +521,8 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		7903355423C0A3E300032986 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ReactiveX/RxSwift";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.1;
 			};
 		};
 		79E0DBB923C4CB9400B2923C /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
@@ -575,45 +536,7 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		7903355523C0A3E300032986 /* RxSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 7903355423C0A3E300032986 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxSwift;
-		};
-		7903355923C0A3E300032986 /* RxRelay */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7903355423C0A3E300032986 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxRelay;
-		};
-		7903355B23C0A3E300032986 /* RxCocoa */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7903355423C0A3E300032986 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxCocoa;
-		};
-		798983A823C0BBAA0019E1CB /* RxSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7903355423C0A3E300032986 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxSwift;
-		};
-		798983AA23C0BBB40019E1CB /* RxBlocking */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7903355423C0A3E300032986 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxBlocking;
-		};
-		798983AC23C0BBB40019E1CB /* RxCocoa */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7903355423C0A3E300032986 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxCocoa;
-		};
-		798983AE23C0BBB40019E1CB /* RxRelay */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7903355423C0A3E300032986 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxRelay;
-		};
-		798983B023C0BBB40019E1CB /* RxTest */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7903355423C0A3E300032986 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxTest;
 		};
 		79E0DBBA23C4CB9400B2923C /* SnapshotTesting */ = {
 			isa = XCSwiftPackageProductDependency;
