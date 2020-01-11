@@ -21,6 +21,7 @@
 		793A7CF723C0FE33007D8150 /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793A7CF623C0FE33007D8150 /* WeatherViewModel.swift */; };
 		793A7CF923C10AD8007D8150 /* WeatherViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793A7CF823C10AD8007D8150 /* WeatherViewModelTests.swift */; };
 		798983C123C0C1B10019E1CB /* WeatherAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798983C023C0C1B10019E1CB /* WeatherAPI.swift */; };
+		79CF571B23CA16C400D7617A /* CombineTestExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = 79CF571A23CA16C400D7617A /* CombineTestExtensions */; };
 		79E0DBB623C4C47B00B2923C /* ViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E0DBB523C4C47B00B2923C /* ViewControllerTests.swift */; };
 		79E0DBBB23C4CB9400B2923C /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 79E0DBBA23C4CB9400B2923C /* SnapshotTesting */; };
 /* End PBXBuildFile section */
@@ -62,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79CF571B23CA16C400D7617A /* CombineTestExtensions in Frameworks */,
 				79E0DBBB23C4CB9400B2923C /* SnapshotTesting in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -152,6 +154,7 @@
 			name = "WeatherApp-SwiftUITests";
 			packageProductDependencies = (
 				79E0DBBA23C4CB9400B2923C /* SnapshotTesting */,
+				79CF571A23CA16C400D7617A /* CombineTestExtensions */,
 			);
 			productName = "WeatherApp-UIKitTests";
 			productReference = 7903357823C0B23E00032986 /* WeatherApp-SwiftUITests.xctest */;
@@ -206,6 +209,7 @@
 			mainGroup = 7930350F23C0A2E5000D931E;
 			packageReferences = (
 				79E0DBB923C4CB9400B2923C /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
+				79CF571923CA16C400D7617A /* XCRemoteSwiftPackageReference "CombineTestExtensions" */,
 			);
 			productRefGroup = 7930351923C0A2E5000D931E /* Products */;
 			projectDirPath = "";
@@ -521,8 +525,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		79CF571923CA16C400D7617A /* XCRemoteSwiftPackageReference "CombineTestExtensions" */ = {
 			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/industrialbinaries/CombineTestExtensions";
 			requirement = {
+				branch = master;
+				kind = branch;
 			};
 		};
 		79E0DBB923C4CB9400B2923C /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
@@ -536,7 +544,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		79CF571A23CA16C400D7617A /* CombineTestExtensions */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = 79CF571923CA16C400D7617A /* XCRemoteSwiftPackageReference "CombineTestExtensions" */;
+			productName = CombineTestExtensions;
 		};
 		79E0DBBA23C4CB9400B2923C /* SnapshotTesting */ = {
 			isa = XCSwiftPackageProductDependency;

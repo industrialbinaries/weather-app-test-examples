@@ -2,12 +2,12 @@
   "object": {
     "pins": [
       {
-        "package": "RxSwift",
-        "repositoryURL": "https://github.com/ReactiveX/RxSwift",
+        "package": "CombineTestExtensions",
+        "repositoryURL": "https://github.com/industrialbinaries/CombineTestExtensions",
         "state": {
-          "branch": null,
-          "revision": "b3e888b4972d9bc76495dd74d30a8c7fad4b9395",
-          "version": "5.0.1"
+          "branch": "master",
+          "revision": "564fc1b8d96736de18a4b67b478b3663d0dfd8bb",
+          "version": null
         }
       },
       {
