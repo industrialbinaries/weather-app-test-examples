@@ -7,22 +7,16 @@
 
 @testable import WeatherApp_SwiftUI
 
+import CombineTestExtensions
 import CoreLocation
-import RxSwift
-import RxTest
 import XCTest
 
-class LocationProviderTests: XCTestCase {
-  var scheduler: TestScheduler!
-  var disposeBag: DisposeBag!
-
+class LocationProviderTests_: XCTestCase {
   var sut: LocationProvider!
   private var locationManager: TestLocationManager!
 
   override func setUp() {
     super.setUp()
-    disposeBag = .init()
-    scheduler = .init(initialClock: 0)
     locationManager = TestLocationManager()
     sut = LocationProvider(locationManager: locationManager)
   }
@@ -37,26 +31,20 @@ class LocationProviderTests: XCTestCase {
   }
 
   func testErrorIsEmmitedWhenAthorizationStatusFailes() {
-    let locations = scheduler.createObserver(LocationProvider.State.self)
-
-    sut.currentLocation
-      .subscribe(locations)
-      .disposed(by: disposeBag)
+    let recorder = sut.currentLocation.record(numberOfRecords: 2)
 
     locationManager.delegate?.locationManager?(locationManager, didChangeAuthorization: .denied)
 
-    XCTAssertEqual(locations.events, [
-      .next(0, .loading),
-      .next(0, .error(LocationProvider.LocationServicesNotAllowed())),
+    let records = recorder.waitAndCollectRecords()
+
+    XCTAssertRecordedValues(records, [
+      .loading,
+      .error(LocationProvider.LocationServicesNotAllowed()),
     ])
   }
 
   func testNewLocationIsPropagated() {
-    let locations = scheduler.createObserver(LocationProvider.State.self)
-
-    sut.currentLocation
-      .subscribe(locations)
-      .disposed(by: disposeBag)
+    let recorder = sut.currentLocation.record(numberOfRecords: 2)
 
     let testLocation = Coordinates(latitude: 123, longitude: 456)
     locationManager.delegate?.locationManager?(
@@ -64,9 +52,11 @@ class LocationProviderTests: XCTestCase {
       didUpdateLocations: [CLLocation(latitude: testLocation.latitude, longitude: testLocation.longitude)]
     )
 
-    XCTAssertEqual(locations.events, [
-      .next(0, .loading),
-      .next(0, .location(testLocation)),
+    let records = recorder.waitAndCollectRecords()
+
+    XCTAssertRecordedValues(records, [
+      .loading,
+      .location(testLocation),
     ])
   }
 }

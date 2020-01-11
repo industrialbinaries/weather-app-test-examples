@@ -5,8 +5,8 @@
 //  MIT license, see LICENSE file for details
 //
 
+import Combine
 import CoreLocation
-import RxSwift
 
 typealias Coordinates = CLLocationCoordinate2D
 
@@ -44,7 +44,7 @@ class LocationProvider: NSObject {
   /// The shared location provider for this app
   static let shared = LocationProvider()
 
-  var currentLocation: Observable<State> { _currentLocation }
+  var currentLocation: AnyPublisher<State, Never> { _currentLocation.eraseToAnyPublisher() }
 
   init(locationManager: CLLocationManager = .init()) {
     self.locationManager = locationManager
@@ -55,13 +55,13 @@ class LocationProvider: NSObject {
     locationManager.requestWhenInUseAuthorization()
   }
 
-  private let _currentLocation: BehaviorSubject<State> = .init(value: .loading)
+  private let _currentLocation: CurrentValueSubject<State, Never> = .init(.loading)
   private let locationManager: CLLocationManager
 }
 
 extension LocationProvider: CLLocationManagerDelegate {
   func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-    _currentLocation.onNext(.error(error))
+    _currentLocation.send(.error(error))
   }
 
   func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -71,12 +71,12 @@ extension LocationProvider: CLLocationManagerDelegate {
     case .notDetermined:
       break // User is presented with the system alert
     default:
-      _currentLocation.onNext(.error(LocationServicesNotAllowed()))
+      _currentLocation.send(.error(LocationServicesNotAllowed()))
     }
   }
 
   func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     guard let location = locations.first else { return }
-    _currentLocation.onNext(.location(location.coordinate))
+    _currentLocation.send(.location(location.coordinate))
   }
 }
