@@ -24,6 +24,29 @@
 		79CF571B23CA16C400D7617A /* CombineTestExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = 79CF571A23CA16C400D7617A /* CombineTestExtensions */; };
 		79E0DBB623C4C47B00B2923C /* ViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E0DBB523C4C47B00B2923C /* ViewControllerTests.swift */; };
 		79E0DBBB23C4CB9400B2923C /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 79E0DBBA23C4CB9400B2923C /* SnapshotTesting */; };
+		79F5FE9123C88D76000C32E3 /* IOHIDEvent+KIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F5FE6423C88D73000C32E3 /* IOHIDEvent+KIF.m */; };
+		79F5FE9223C88D76000C32E3 /* NSError-KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F5FE6523C88D73000C32E3 /* NSError-KIFAdditions.m */; };
+		79F5FE9323C88D76000C32E3 /* UIScreen+KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F5FE6623C88D73000C32E3 /* UIScreen+KIFAdditions.m */; };
+		79F5FE9423C88D76000C32E3 /* UIAccessibilityElement-KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F5FE6823C88D74000C32E3 /* UIAccessibilityElement-KIFAdditions.m */; };
+		79F5FE9523C88D76000C32E3 /* UIView-Debugging.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F5FE6B23C88D74000C32E3 /* UIView-Debugging.m */; };
+		79F5FE9623C88D76000C32E3 /* KIFTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F5FE6C23C88D74000C32E3 /* KIFTestCase.m */; };
+		79F5FE9723C88D76000C32E3 /* UIScrollView-KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F5FE6D23C88D74000C32E3 /* UIScrollView-KIFAdditions.m */; };
+		79F5FE9823C88D76000C32E3 /* XCTestCase-KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F5FE7023C88D74000C32E3 /* XCTestCase-KIFAdditions.m */; };
+		79F5FE9923C88D76000C32E3 /* CAAnimation+KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F5FE7123C88D74000C32E3 /* CAAnimation+KIFAdditions.m */; };
+		79F5FE9A23C88D76000C32E3 /* NSException-KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F5FE7323C88D75000C32E3 /* NSException-KIFAdditions.m */; };
+		79F5FE9B23C88D76000C32E3 /* UIView-KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F5FE7423C88D75000C32E3 /* UIView-KIFAdditions.m */; };
+		79F5FE9C23C88D76000C32E3 /* NSBundle-KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F5FE7523C88D75000C32E3 /* NSBundle-KIFAdditions.m */; };
+		79F5FE9D23C88D76000C32E3 /* UIEvent+KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F5FE7723C88D75000C32E3 /* UIEvent+KIFAdditions.m */; };
+		79F5FE9E23C88D76000C32E3 /* NSPredicate+KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F5FE7923C88D75000C32E3 /* NSPredicate+KIFAdditions.m */; };
+		79F5FE9F23C88D76000C32E3 /* CALayer-KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F5FE7B23C88D75000C32E3 /* CALayer-KIFAdditions.m */; };
+		79F5FEA023C88D76000C32E3 /* NSFileManager-KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F5FE7D23C88D75000C32E3 /* NSFileManager-KIFAdditions.m */; };
+		79F5FEA123C88D76000C32E3 /* UITableView-KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F5FE7F23C88D75000C32E3 /* UITableView-KIFAdditions.m */; };
+		79F5FEA223C88D76000C32E3 /* UITouch-KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F5FE8023C88D75000C32E3 /* UITouch-KIFAdditions.m */; };
+		79F5FEA323C88D76000C32E3 /* UIWindow-KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F5FE8223C88D75000C32E3 /* UIWindow-KIFAdditions.m */; };
+		79F5FEA423C88D76000C32E3 /* UIApplication-KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F5FE8423C88D75000C32E3 /* UIApplication-KIFAdditions.m */; };
+		79F5FEA523C88D76000C32E3 /* CGGeometry-KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F5FE8623C88D75000C32E3 /* CGGeometry-KIFAdditions.m */; };
+		79F5FEA623C88D76000C32E3 /* NSString+KIFAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F5FE8823C88D75000C32E3 /* NSString+KIFAdditions.m */; };
+		79F5FEA723C88D76000C32E3 /* KIFTypist.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F5FE8A23C88D76000C32E3 /* KIFTypist.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +79,54 @@
 		793A7CF823C10AD8007D8150 /* WeatherViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModelTests.swift; sourceTree = "<group>"; };
 		798983C023C0C1B10019E1CB /* WeatherAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAPI.swift; sourceTree = "<group>"; };
 		79E0DBB523C4C47B00B2923C /* ViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerTests.swift; sourceTree = "<group>"; };
+		79F5FE6023C88D72000C32E3 /* WeatherApp-SwiftUITests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WeatherApp-SwiftUITests-Bridging-Header.h"; sourceTree = "<group>"; };
+		79F5FE6123C88D73000C32E3 /* KIFTypist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KIFTypist.h; sourceTree = "<group>"; };
+		79F5FE6223C88D73000C32E3 /* UIWindow-KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow-KIFAdditions.h"; sourceTree = "<group>"; };
+		79F5FE6323C88D73000C32E3 /* CGGeometry-KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CGGeometry-KIFAdditions.h"; sourceTree = "<group>"; };
+		79F5FE6423C88D73000C32E3 /* IOHIDEvent+KIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IOHIDEvent+KIF.m"; sourceTree = "<group>"; };
+		79F5FE6523C88D73000C32E3 /* NSError-KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError-KIFAdditions.m"; sourceTree = "<group>"; };
+		79F5FE6623C88D73000C32E3 /* UIScreen+KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScreen+KIFAdditions.m"; sourceTree = "<group>"; };
+		79F5FE6723C88D73000C32E3 /* UIScrollView-KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView-KIFAdditions.h"; sourceTree = "<group>"; };
+		79F5FE6823C88D74000C32E3 /* UIAccessibilityElement-KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAccessibilityElement-KIFAdditions.m"; sourceTree = "<group>"; };
+		79F5FE6923C88D74000C32E3 /* LoadableCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadableCategory.h; sourceTree = "<group>"; };
+		79F5FE6A23C88D74000C32E3 /* UITouch-KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITouch-KIFAdditions.h"; sourceTree = "<group>"; };
+		79F5FE6B23C88D74000C32E3 /* UIView-Debugging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView-Debugging.m"; sourceTree = "<group>"; };
+		79F5FE6C23C88D74000C32E3 /* KIFTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KIFTestCase.m; sourceTree = "<group>"; };
+		79F5FE6D23C88D74000C32E3 /* UIScrollView-KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView-KIFAdditions.m"; sourceTree = "<group>"; };
+		79F5FE6E23C88D74000C32E3 /* UIView-KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView-KIFAdditions.h"; sourceTree = "<group>"; };
+		79F5FE6F23C88D74000C32E3 /* NSBundle-KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle-KIFAdditions.h"; sourceTree = "<group>"; };
+		79F5FE7023C88D74000C32E3 /* XCTestCase-KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase-KIFAdditions.m"; sourceTree = "<group>"; };
+		79F5FE7123C88D74000C32E3 /* CAAnimation+KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CAAnimation+KIFAdditions.m"; sourceTree = "<group>"; };
+		79F5FE7223C88D74000C32E3 /* UITableView-KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView-KIFAdditions.h"; sourceTree = "<group>"; };
+		79F5FE7323C88D75000C32E3 /* NSException-KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSException-KIFAdditions.m"; sourceTree = "<group>"; };
+		79F5FE7423C88D75000C32E3 /* UIView-KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView-KIFAdditions.m"; sourceTree = "<group>"; };
+		79F5FE7523C88D75000C32E3 /* NSBundle-KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle-KIFAdditions.m"; sourceTree = "<group>"; };
+		79F5FE7623C88D75000C32E3 /* CAAnimation+KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CAAnimation+KIFAdditions.h"; sourceTree = "<group>"; };
+		79F5FE7723C88D75000C32E3 /* UIEvent+KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIEvent+KIFAdditions.m"; sourceTree = "<group>"; };
+		79F5FE7823C88D75000C32E3 /* XCTestCase-KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase-KIFAdditions.h"; sourceTree = "<group>"; };
+		79F5FE7923C88D75000C32E3 /* NSPredicate+KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSPredicate+KIFAdditions.m"; sourceTree = "<group>"; };
+		79F5FE7A23C88D75000C32E3 /* NSError-KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError-KIFAdditions.h"; sourceTree = "<group>"; };
+		79F5FE7B23C88D75000C32E3 /* CALayer-KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer-KIFAdditions.m"; sourceTree = "<group>"; };
+		79F5FE7C23C88D75000C32E3 /* NSPredicate+KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSPredicate+KIFAdditions.h"; sourceTree = "<group>"; };
+		79F5FE7D23C88D75000C32E3 /* NSFileManager-KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager-KIFAdditions.m"; sourceTree = "<group>"; };
+		79F5FE7E23C88D75000C32E3 /* KIFTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KIFTestCase.h; sourceTree = "<group>"; };
+		79F5FE7F23C88D75000C32E3 /* UITableView-KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView-KIFAdditions.m"; sourceTree = "<group>"; };
+		79F5FE8023C88D75000C32E3 /* UITouch-KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITouch-KIFAdditions.m"; sourceTree = "<group>"; };
+		79F5FE8123C88D75000C32E3 /* UIView-Debugging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView-Debugging.h"; sourceTree = "<group>"; };
+		79F5FE8223C88D75000C32E3 /* UIWindow-KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWindow-KIFAdditions.m"; sourceTree = "<group>"; };
+		79F5FE8323C88D75000C32E3 /* UIApplication-KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication-KIFAdditions.h"; sourceTree = "<group>"; };
+		79F5FE8423C88D75000C32E3 /* UIApplication-KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication-KIFAdditions.m"; sourceTree = "<group>"; };
+		79F5FE8523C88D75000C32E3 /* UIEvent+KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIEvent+KIFAdditions.h"; sourceTree = "<group>"; };
+		79F5FE8623C88D75000C32E3 /* CGGeometry-KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CGGeometry-KIFAdditions.m"; sourceTree = "<group>"; };
+		79F5FE8823C88D75000C32E3 /* NSString+KIFAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+KIFAdditions.m"; sourceTree = "<group>"; };
+		79F5FE8923C88D76000C32E3 /* NSString+KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+KIFAdditions.h"; sourceTree = "<group>"; };
+		79F5FE8A23C88D76000C32E3 /* KIFTypist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KIFTypist.m; sourceTree = "<group>"; };
+		79F5FE8B23C88D76000C32E3 /* NSException-KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSException-KIFAdditions.h"; sourceTree = "<group>"; };
+		79F5FE8C23C88D76000C32E3 /* NSFileManager-KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager-KIFAdditions.h"; sourceTree = "<group>"; };
+		79F5FE8D23C88D76000C32E3 /* UIScreen+KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScreen+KIFAdditions.h"; sourceTree = "<group>"; };
+		79F5FE8E23C88D76000C32E3 /* IOHIDEvent+KIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IOHIDEvent+KIF.h"; sourceTree = "<group>"; };
+		79F5FE8F23C88D76000C32E3 /* CALayer-KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer-KIFAdditions.h"; sourceTree = "<group>"; };
+		79F5FE9023C88D76000C32E3 /* UIAccessibilityElement-KIFAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAccessibilityElement-KIFAdditions.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +159,7 @@
 		7903357923C0B23E00032986 /* WeatherApp-SwiftUITests */ = {
 			isa = PBXGroup;
 			children = (
+				79F5FE5F23C88D47000C32E3 /* KIFF_bits */,
 				7903357C23C0B23E00032986 /* Info.plist */,
 				793A7CF223C0EE5E007D8150 /* TestURLProtocol.swift */,
 				793A7CF423C0F622007D8150 /* WeatherAPISampleResponse.json */,
@@ -133,6 +205,61 @@
 				7930352923C0A2E6000D931E /* Info.plist */,
 			);
 			path = "WeatherApp-SwiftUI";
+			sourceTree = "<group>";
+		};
+		79F5FE5F23C88D47000C32E3 /* KIFF_bits */ = {
+			isa = PBXGroup;
+			children = (
+				79F5FE7623C88D75000C32E3 /* CAAnimation+KIFAdditions.h */,
+				79F5FE7123C88D74000C32E3 /* CAAnimation+KIFAdditions.m */,
+				79F5FE8F23C88D76000C32E3 /* CALayer-KIFAdditions.h */,
+				79F5FE7B23C88D75000C32E3 /* CALayer-KIFAdditions.m */,
+				79F5FE6323C88D73000C32E3 /* CGGeometry-KIFAdditions.h */,
+				79F5FE8623C88D75000C32E3 /* CGGeometry-KIFAdditions.m */,
+				79F5FE8E23C88D76000C32E3 /* IOHIDEvent+KIF.h */,
+				79F5FE6423C88D73000C32E3 /* IOHIDEvent+KIF.m */,
+				79F5FE7E23C88D75000C32E3 /* KIFTestCase.h */,
+				79F5FE6C23C88D74000C32E3 /* KIFTestCase.m */,
+				79F5FE6123C88D73000C32E3 /* KIFTypist.h */,
+				79F5FE8A23C88D76000C32E3 /* KIFTypist.m */,
+				79F5FE6923C88D74000C32E3 /* LoadableCategory.h */,
+				79F5FE6F23C88D74000C32E3 /* NSBundle-KIFAdditions.h */,
+				79F5FE7523C88D75000C32E3 /* NSBundle-KIFAdditions.m */,
+				79F5FE7A23C88D75000C32E3 /* NSError-KIFAdditions.h */,
+				79F5FE6523C88D73000C32E3 /* NSError-KIFAdditions.m */,
+				79F5FE8B23C88D76000C32E3 /* NSException-KIFAdditions.h */,
+				79F5FE7323C88D75000C32E3 /* NSException-KIFAdditions.m */,
+				79F5FE8C23C88D76000C32E3 /* NSFileManager-KIFAdditions.h */,
+				79F5FE7D23C88D75000C32E3 /* NSFileManager-KIFAdditions.m */,
+				79F5FE7C23C88D75000C32E3 /* NSPredicate+KIFAdditions.h */,
+				79F5FE7923C88D75000C32E3 /* NSPredicate+KIFAdditions.m */,
+				79F5FE8923C88D76000C32E3 /* NSString+KIFAdditions.h */,
+				79F5FE8823C88D75000C32E3 /* NSString+KIFAdditions.m */,
+				79F5FE9023C88D76000C32E3 /* UIAccessibilityElement-KIFAdditions.h */,
+				79F5FE6823C88D74000C32E3 /* UIAccessibilityElement-KIFAdditions.m */,
+				79F5FE8323C88D75000C32E3 /* UIApplication-KIFAdditions.h */,
+				79F5FE8423C88D75000C32E3 /* UIApplication-KIFAdditions.m */,
+				79F5FE8523C88D75000C32E3 /* UIEvent+KIFAdditions.h */,
+				79F5FE7723C88D75000C32E3 /* UIEvent+KIFAdditions.m */,
+				79F5FE8D23C88D76000C32E3 /* UIScreen+KIFAdditions.h */,
+				79F5FE6623C88D73000C32E3 /* UIScreen+KIFAdditions.m */,
+				79F5FE6723C88D73000C32E3 /* UIScrollView-KIFAdditions.h */,
+				79F5FE6D23C88D74000C32E3 /* UIScrollView-KIFAdditions.m */,
+				79F5FE7223C88D74000C32E3 /* UITableView-KIFAdditions.h */,
+				79F5FE7F23C88D75000C32E3 /* UITableView-KIFAdditions.m */,
+				79F5FE6A23C88D74000C32E3 /* UITouch-KIFAdditions.h */,
+				79F5FE8023C88D75000C32E3 /* UITouch-KIFAdditions.m */,
+				79F5FE8123C88D75000C32E3 /* UIView-Debugging.h */,
+				79F5FE6B23C88D74000C32E3 /* UIView-Debugging.m */,
+				79F5FE6E23C88D74000C32E3 /* UIView-KIFAdditions.h */,
+				79F5FE7423C88D75000C32E3 /* UIView-KIFAdditions.m */,
+				79F5FE6223C88D73000C32E3 /* UIWindow-KIFAdditions.h */,
+				79F5FE8223C88D75000C32E3 /* UIWindow-KIFAdditions.m */,
+				79F5FE7823C88D75000C32E3 /* XCTestCase-KIFAdditions.h */,
+				79F5FE7023C88D74000C32E3 /* XCTestCase-KIFAdditions.m */,
+				79F5FE6023C88D72000C32E3 /* WeatherApp-SwiftUITests-Bridging-Header.h */,
+			);
+			path = KIFF_bits;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -191,6 +318,7 @@
 				TargetAttributes = {
 					7903357723C0B23E00032986 = {
 						CreatedOnToolsVersion = 11.2.1;
+						LastSwiftMigration = 1130;
 						TestTargetID = 7930351723C0A2E5000D931E;
 					};
 					7930351723C0A2E5000D931E = {
@@ -248,10 +376,33 @@
 			buildActionMask = 2147483647;
 			files = (
 				79E0DBB623C4C47B00B2923C /* ViewControllerTests.swift in Sources */,
+				79F5FE9F23C88D76000C32E3 /* CALayer-KIFAdditions.m in Sources */,
+				79F5FE9423C88D76000C32E3 /* UIAccessibilityElement-KIFAdditions.m in Sources */,
 				7903358323C0B24F00032986 /* LocationProviderTests.swift in Sources */,
+				79F5FEA423C88D76000C32E3 /* UIApplication-KIFAdditions.m in Sources */,
+				79F5FE9523C88D76000C32E3 /* UIView-Debugging.m in Sources */,
 				793A7CF923C10AD8007D8150 /* WeatherViewModelTests.swift in Sources */,
+				79F5FE9123C88D76000C32E3 /* IOHIDEvent+KIF.m in Sources */,
+				79F5FEA023C88D76000C32E3 /* NSFileManager-KIFAdditions.m in Sources */,
+				79F5FEA223C88D76000C32E3 /* UITouch-KIFAdditions.m in Sources */,
+				79F5FE9323C88D76000C32E3 /* UIScreen+KIFAdditions.m in Sources */,
+				79F5FE9923C88D76000C32E3 /* CAAnimation+KIFAdditions.m in Sources */,
+				79F5FE9A23C88D76000C32E3 /* NSException-KIFAdditions.m in Sources */,
+				79F5FE9D23C88D76000C32E3 /* UIEvent+KIFAdditions.m in Sources */,
+				79F5FE9223C88D76000C32E3 /* NSError-KIFAdditions.m in Sources */,
+				79F5FE9723C88D76000C32E3 /* UIScrollView-KIFAdditions.m in Sources */,
+				79F5FE9623C88D76000C32E3 /* KIFTestCase.m in Sources */,
 				793A7CF123C0EDCB007D8150 /* WeatherAPITests.swift in Sources */,
+				79F5FEA523C88D76000C32E3 /* CGGeometry-KIFAdditions.m in Sources */,
+				79F5FE9823C88D76000C32E3 /* XCTestCase-KIFAdditions.m in Sources */,
+				79F5FE9C23C88D76000C32E3 /* NSBundle-KIFAdditions.m in Sources */,
+				79F5FEA723C88D76000C32E3 /* KIFTypist.m in Sources */,
+				79F5FEA123C88D76000C32E3 /* UITableView-KIFAdditions.m in Sources */,
+				79F5FE9E23C88D76000C32E3 /* NSPredicate+KIFAdditions.m in Sources */,
 				793A7CF323C0EE5E007D8150 /* TestURLProtocol.swift in Sources */,
+				79F5FEA323C88D76000C32E3 /* UIWindow-KIFAdditions.m in Sources */,
+				79F5FE9B23C88D76000C32E3 /* UIView-KIFAdditions.m in Sources */,
+				79F5FEA623C88D76000C32E3 /* NSString+KIFAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,6 +453,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = X53G3KMVA6;
@@ -311,8 +463,15 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_LDFLAGS = (
+					"-framework",
+					IOKit,
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "co.industrial-bianries.WeatherApp-SwiftUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "WeatherApp-SwiftUITests/KIFF_bits/WeatherApp-SwiftUITests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WeatherApp-SwiftUI.app/WeatherApp-SwiftUI";
@@ -323,6 +482,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = X53G3KMVA6;
@@ -332,8 +492,14 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_LDFLAGS = (
+					"-framework",
+					IOKit,
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "co.industrial-bianries.WeatherApp-SwiftUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "WeatherApp-SwiftUITests/KIFF_bits/WeatherApp-SwiftUITests-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WeatherApp-SwiftUI.app/WeatherApp-SwiftUI";
