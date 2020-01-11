@@ -5,9 +5,8 @@
 //  MIT license, see LICENSE file for details
 //
 
+import Combine
 import CoreLocation
-import RxCocoa
-import RxSwift
 
 struct Weather: Equatable {
   let description: String
@@ -35,11 +34,12 @@ extension String {
 }
 
 enum WeatherAPI {
-  static func loadWeatherData(coordinates: CLLocationCoordinate2D) -> Observable<Weather> {
+  static func loadWeatherData_(coordinates: CLLocationCoordinate2D) -> AnyPublisher<Weather, Error> {
     let request = createRequest(for: coordinates)
-    return URLSession.shared.rx
-      .data(request: request)
-      .map { try JSONDecoder().decode(WeatherResponseDTO.self, from: $0) }
+    return URLSession.shared
+      .dataTaskPublisher(for: request)
+      .map { $0.data }
+      .decode(type: WeatherResponseDTO.self, decoder: JSONDecoder())
       .map {
         Weather(
           description: $0.weather[0].main,
@@ -48,6 +48,7 @@ enum WeatherAPI {
           location: $0.name
         )
       }
+      .eraseToAnyPublisher()
   }
 
   private static func createRequest(for coordinates: CLLocationCoordinate2D) -> URLRequest {
