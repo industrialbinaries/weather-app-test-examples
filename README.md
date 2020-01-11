@@ -67,6 +67,6 @@ This repo contains **two funcionaly identical implementations** of a simple weat
 
 ## License and Credits
 
-Code in this repo is released under the MIT license. See [LICENSE](https://github.com/industrialbinaries/CombineTestExtensions/blob/master/LICENSE) for details.
+Code in this repo is released under the MIT license. See [LICENSE](/LICENSE) for details.
 
 Created by [Vojta Stavik](https://twitter.com/vojtastavik) @ [Industrial Binaries](https://industrial-binaries.co).
