@@ -34,7 +34,7 @@ extension String {
 }
 
 enum WeatherAPI {
-  static func loadWeatherData_(coordinates: CLLocationCoordinate2D) -> AnyPublisher<Weather, Error> {
+  static func loadWeatherData(coordinates: CLLocationCoordinate2D) -> AnyPublisher<Weather, Error> {
     let request = createRequest(for: coordinates)
     return URLSession.shared
       .dataTaskPublisher(for: request)

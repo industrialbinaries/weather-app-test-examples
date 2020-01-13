@@ -51,7 +51,7 @@ class WeatherViewModel: ObservableObject {
   let dislikeButtonTapped: PassthroughSubject<Void, Never> = .init()
 
   init(
-    weatherAPI: @escaping API = WeatherAPI.loadWeatherData_,
+    weatherAPI: @escaping API = WeatherAPI.loadWeatherData,
     storage: @escaping Storage = { print($0, $1) },
     locale: Locale = .current,
     currentLocation: AnyPublisher<LocationProvider.State, Never>

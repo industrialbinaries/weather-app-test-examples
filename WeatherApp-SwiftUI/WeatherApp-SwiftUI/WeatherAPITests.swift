@@ -29,7 +29,7 @@ class WeatherAPITests: XCTestCase {
     }
 
     let recorder = WeatherAPI
-      .loadWeatherData_(coordinates: .init(latitude: latitude, longitude: longitude))
+      .loadWeatherData(coordinates: .init(latitude: latitude, longitude: longitude))
       .record(numberOfRecords: 1)
 
     recorder.waitForRecords()
@@ -47,7 +47,7 @@ class WeatherAPITests: XCTestCase {
     TestURLProtocol.mockResponses[endpointURL] = { _ in (.success(WeatherAPI.sampleResponse), 200) }
 
     let recorder = WeatherAPI
-      .loadWeatherData_(coordinates: .init(latitude: latitude, longitude: longitude))
+      .loadWeatherData(coordinates: .init(latitude: latitude, longitude: longitude))
       .record(numberOfRecords: 1)
 
     recorder.waitForRecords()
@@ -67,7 +67,7 @@ class WeatherAPITests: XCTestCase {
     TestURLProtocol.mockResponses[endpointURL] = { _ in (.failure(MockError()), 440) }
 
     let recorder = WeatherAPI
-      .loadWeatherData_(coordinates: .init(latitude: latitude, longitude: longitude))
+      .loadWeatherData(coordinates: .init(latitude: latitude, longitude: longitude))
       .record(numberOfRecords: 1)
 
     recorder.waitForRecords()
