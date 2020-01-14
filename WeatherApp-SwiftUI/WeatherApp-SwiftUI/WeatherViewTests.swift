@@ -107,11 +107,14 @@ struct Interactor<V: View> {
   private let window: UIWindow
   private let hostingVC: UIHostingController<V>
 
-  func tap(_ accessibilityIdentifier: String) {
+  func tap(_ accessibilityIdentifier: String, file: StaticString = #file, line: UInt = #line) {
     let view = hostingVC.view!
     let element = view.accessibilityElement { $0?.accessibilityIdentifier == accessibilityIdentifier }
     guard let rect = element?.accessibilityFrame
-    else { fatalError("Missing") }
+    else {
+      XCTFail("Can't find elemnet with accessibility id \(accessibilityIdentifier).", file: file, line: line)
+      return
+    }
 
     view.tap(at: .init(x: rect.midX, y: rect.midY))
   }
