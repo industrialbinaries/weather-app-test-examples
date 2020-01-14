@@ -99,6 +99,9 @@ class WeatherViewTests: XCTestCase {
 extension View {
   func simulateInteraction(_ actions: (Interactor<Self>) -> Void) {
     let interactor = Interactor(view: self)
+    // Without this call, looking up a specific accessibilityIdentifier often fails.
+    UIApplication.shared.accessibilityActivate()
+    
     actions(interactor)
   }
 }
