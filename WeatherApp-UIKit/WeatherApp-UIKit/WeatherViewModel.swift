@@ -17,25 +17,38 @@ enum WeatherViewModelState: Equatable {
     weatherDescription: String,
     temperature: String,
     icon: String,
-    location: String
+    location: String,
+    weatherFeedback: Bool?
   )
   case error
+  
+  static func == (lhs: WeatherViewModelState, rhs: WeatherViewModelState) -> Bool {
+    switch (lhs, rhs) {
+    case (.loading, .loading), (.error, .error):
+      return true
+    case (let .loaded(lhsDesc, lhsTemp, lhsIcon, lhsLocation, _), let .loaded(rhsDesc, rhsTemp, rhsIcon, rhsLocation, _)):
+      return (lhsDesc, lhsTemp, lhsIcon, lhsLocation) == (rhsDesc, rhsTemp, rhsIcon, rhsLocation)
+    default:
+      return false
+    }
+  }
 }
 
 extension WeatherViewModelState {
-  init(weather: Weather, locale: Locale) {
+  init(weather: Weather, locale: Locale, weatherFeedback: Bool? = nil) {
     let formatter = MeasurementFormatter()
     formatter.locale = locale
     formatter.numberFormatter.maximumFractionDigits = 1
-
+    
     let measurement = Measurement(value: weather.temperature, unit: UnitTemperature.celsius)
     let temperature = formatter.string(from: measurement)
-
+    
     self = .loaded(
       weatherDescription: weather.description,
       temperature: temperature,
       icon: weather.iconCode.asWeatherEmoji,
-      location: weather.location
+      location: weather.location,
+      weatherFeedback: weatherFeedback
     )
   }
 }
