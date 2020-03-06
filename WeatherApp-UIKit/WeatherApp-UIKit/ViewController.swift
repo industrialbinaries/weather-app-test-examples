@@ -10,16 +10,15 @@ import UIKit
 
 class ViewController: UIViewController {
   // MARK: Dependencies
-
-  var viewModel: WeatherViewModelType!
-
+  // We should have location provider here
+  var viewModel: StateMachineViewModel!
   // MARK: Outlets
 
   @IBOutlet var iconLabel: UILabel!
   @IBOutlet var weatherDescriptionLabel: UILabel!
   @IBOutlet var temperatureLabel: UILabel!
   @IBOutlet var locationLabel: UILabel!
-
+  
   @IBOutlet var dislikeButton: UIButton!
   @IBOutlet var likeButton: UIButton!
 
@@ -31,8 +30,16 @@ class ViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-
-    viewModel.state
+    
+    let input: StateMachineViewModelInput = (self.likeButton.rx.tap.asObservable(), self.dislikeButton.rx.tap.asObservable())
+    
+    self.viewModel = stateMachineViewModel
+    let state = self.viewModel(WeatherAPI.loadWeatherData,
+                   { _, _ in print("saved") },
+                   .current,
+                   LocationProvider.shared.currentLocation,
+                   input)
+    state
       .drive(onNext: { [unowned self] state in
         switch state {
         case .loading: self.loading()
@@ -48,14 +55,6 @@ class ViewController: UIViewController {
         case .error: self.error()
         }
       })
-      .disposed(by: disposeBag)
-
-    likeButton.rx.tap
-      .bind(to: viewModel.likeButtonTapped)
-      .disposed(by: disposeBag)
-
-    dislikeButton.rx.tap
-      .bind(to: viewModel.dislikeButtonTapped)
       .disposed(by: disposeBag)
   }
 
