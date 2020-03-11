@@ -83,3 +83,29 @@ struct WeatherViewModel: WeatherViewModelType {
 
   private let disposeBag = DisposeBag()
 }
+
+// MARK: View model without subscriptions
+
+typealias StateMachineViewModelInput = (
+  likeButtonTapped: Driver<Void>,
+  dislikeButtonTapped: Driver<Void>
+)
+typealias StateMachineViewModelOutput = Driver<WeatherViewModelState>
+typealias StateMachineViewModel = (
+  @escaping WeatherViewModel.API,
+  @escaping WeatherViewModel.Storage,
+  Locale,
+  Observable<LocationProvider.State>,
+  StateMachineViewModelInput
+  ) -> StateMachineViewModelOutput
+
+func stateMachineViewModel(
+  weatherAPI: @escaping WeatherViewModel.API,
+  storage: @escaping WeatherViewModel.Storage = { _, _ in },
+  locale: Locale = .current,
+  currentLocation: Observable<LocationProvider.State>,
+  input: StateMachineViewModelInput
+) -> StateMachineViewModelOutput {
+  return Driver.just(.loading)
+}
+
