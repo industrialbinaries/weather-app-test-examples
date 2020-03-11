@@ -11,35 +11,6 @@ import RxSwift
 
 typealias IconAssetName = String
 
-enum WeatherViewModelState: Equatable {
-  case loading
-  case loaded(
-    weatherDescription: String,
-    temperature: String,
-    icon: String,
-    location: String
-  )
-  case error
-}
-
-extension WeatherViewModelState {
-  init(weather: Weather, locale: Locale) {
-    let formatter = MeasurementFormatter()
-    formatter.locale = locale
-    formatter.numberFormatter.maximumFractionDigits = 1
-
-    let measurement = Measurement(value: weather.temperature, unit: UnitTemperature.celsius)
-    let temperature = formatter.string(from: measurement)
-
-    self = .loaded(
-      weatherDescription: weather.description,
-      temperature: temperature,
-      icon: weather.iconCode.asWeatherEmoji,
-      location: weather.location
-    )
-  }
-}
-
 protocol WeatherViewModelType {
   // Outputs
   var state: Driver<WeatherViewModelState> { get }

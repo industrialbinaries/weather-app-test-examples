@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		28B50DD22418F73D0027CA7E /* WeatherViewModelState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B50DD12418F73D0027CA7E /* WeatherViewModelState.swift */; };
 		7903355623C0A3E300032986 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7903355523C0A3E300032986 /* RxSwift */; };
 		7903355A23C0A3E300032986 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 7903355923C0A3E300032986 /* RxRelay */; };
 		7903355C23C0A3E300032986 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 7903355B23C0A3E300032986 /* RxCocoa */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		28B50DD12418F73D0027CA7E /* WeatherViewModelState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModelState.swift; sourceTree = "<group>"; };
 		7903355F23C0A57B00032986 /* LocationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationProvider.swift; sourceTree = "<group>"; };
 		7903357823C0B23E00032986 /* WeatherApp-UIKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WeatherApp-UIKitTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7903357C23C0B23E00032986 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				7930352423C0A2E6000D931E /* Assets.xcassets */,
 				7930352623C0A2E6000D931E /* LaunchScreen.storyboard */,
 				7930352923C0A2E6000D931E /* Info.plist */,
+				28B50DD12418F73D0027CA7E /* WeatherViewModelState.swift */,
 			);
 			path = "WeatherApp-UIKit";
 			sourceTree = "<group>";
@@ -279,6 +282,7 @@
 				7930352023C0A2E5000D931E /* ViewController.swift in Sources */,
 				793A7CF723C0FE33007D8150 /* WeatherViewModel.swift in Sources */,
 				7903356023C0A57B00032986 /* LocationProvider.swift in Sources */,
+				28B50DD22418F73D0027CA7E /* WeatherViewModelState.swift in Sources */,
 				798983C123C0C1B10019E1CB /* WeatherAPI.swift in Sources */,
 				7930351C23C0A2E5000D931E /* AppDelegate.swift in Sources */,
 				7930351E23C0A2E5000D931E /* SceneDelegate.swift in Sources */,
