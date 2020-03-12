@@ -28,7 +28,7 @@ class WeatherViewModelTests: XCTestCase {
 
   let locale = Locale(identifier: "cs")
 
-  let mockApi: WeatherViewModel.API = { _ in .never() }
+  let mockApi: API = { _ in .never() }
 
   let emptyInput: StateMachineViewModelInput = (Driver.never(), Driver.never())
 
@@ -46,7 +46,7 @@ class WeatherViewModelTests: XCTestCase {
     ])
 
     var recordedLocations: [Coordinates] = []
-    let api: WeatherViewModel.API = {
+    let api: API = {
       recordedLocations.append($0)
       return .just(.mock)
     }
@@ -80,7 +80,7 @@ class WeatherViewModelTests: XCTestCase {
       .init(time: 0, value: .next(.location(mockLocations[0]))),
     ])
 
-    let api: WeatherViewModel.API = { _ in
+    let api: API = { _ in
       self.scheduler
         .createColdObservable([.next(500, Weather.mock), .completed(500)])
         .asObservable()
@@ -102,7 +102,7 @@ class WeatherViewModelTests: XCTestCase {
       .init(time: 100, value: .next(.location(mockLocations[0]))),
     ])
 
-    let api: WeatherViewModel.API = { _ in
+    let api: API = { _ in
       self.scheduler
         .createColdObservable([.init(time: 100, value: .next(Weather.mock))])
         .asObservable()
@@ -123,12 +123,12 @@ class WeatherViewModelTests: XCTestCase {
       .init(time: 0, value: .next(.location(mockLocations[0]))),
     ])
 
-    let api: WeatherViewModel.API = { _ in .just(.mock) }
+    let api: API = { _ in .just(.mock) }
 
     var likedWeather: Weather?
     var dislikedWeather: Weather?
 
-    let storage: WeatherViewModel.Storage = { _weather, liked in
+    let storage: Storage = { _weather, liked in
       if liked {
         likedWeather = _weather
       } else {
