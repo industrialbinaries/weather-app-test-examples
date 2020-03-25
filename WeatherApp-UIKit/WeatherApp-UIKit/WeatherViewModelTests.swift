@@ -28,15 +28,15 @@ class WeatherViewModelTests: XCTestCase {
 
   let locale = Locale(identifier: "cs")
 
-  let mockApi: WeatherViewModel.API = { _ in .never() }
+  let mockApi: API = { _ in .never() }
+
+  let emptyInput: StateMachineViewModelInput = (Driver.never(), Driver.never())
 
   override func setUp() {
     super.setUp()
     scheduler = .init(initialClock: 0)
     disposeBag = .init()
   }
-
-  // MARK: - Tests
 
   func testLocationCoordinatesArePropagatedCorrectly() {
     let location = locationObservable(with: [
@@ -46,14 +46,14 @@ class WeatherViewModelTests: XCTestCase {
     ])
 
     var recordedLocations: [Coordinates] = []
-    let api: WeatherViewModel.API = {
+    let api: API = {
       recordedLocations.append($0)
       return .just(.mock)
     }
 
-    let sut = WeatherViewModel(weatherAPI: api, currentLocation: location)
+    let sut = stateMachineViewModel(weatherAPI: api, currentLocation: location, input: emptyInput)
     let result = scheduler.createObserver(WeatherViewModelState.self)
-    sut.state.drive(result).disposed(by: disposeBag)
+    sut.drive(result).disposed(by: disposeBag)
 
     scheduler.start()
 
@@ -66,8 +66,8 @@ class WeatherViewModelTests: XCTestCase {
       .init(time: 100, value: .next(.error(MockError()))),
     ])
 
-    let sut = WeatherViewModel(weatherAPI: mockApi, locale: locale, currentLocation: location)
-    let result = runAndObserve(sut.state)
+    let sut = stateMachineViewModel(weatherAPI: mockApi, locale: locale, currentLocation: location, input: emptyInput)
+    let result = runAndObserve(sut)
 
     XCTAssertEqual(result.events, [
       .init(time: 0, value: .next(.loading)),
@@ -80,14 +80,14 @@ class WeatherViewModelTests: XCTestCase {
       .init(time: 0, value: .next(.location(mockLocations[0]))),
     ])
 
-    let api: WeatherViewModel.API = { _ in
+    let api: API = { _ in
       self.scheduler
         .createColdObservable([.next(500, Weather.mock), .completed(500)])
         .asObservable()
     }
 
-    let sut = WeatherViewModel(weatherAPI: api, locale: locale, currentLocation: location)
-    let result = runAndObserve(sut.state)
+    let sut = stateMachineViewModel(weatherAPI: api, locale: locale, currentLocation: location, input: emptyInput)
+    let result = runAndObserve(sut)
 
     XCTAssertEqual(result.events,
                    [
@@ -102,14 +102,14 @@ class WeatherViewModelTests: XCTestCase {
       .init(time: 100, value: .next(.location(mockLocations[0]))),
     ])
 
-    let api: WeatherViewModel.API = { _ in
+    let api: API = { _ in
       self.scheduler
         .createColdObservable([.init(time: 100, value: .next(Weather.mock))])
         .asObservable()
     }
 
-    let sut = WeatherViewModel(weatherAPI: api, locale: locale, currentLocation: location)
-    let result = runAndObserve(sut.state)
+    let sut = stateMachineViewModel(weatherAPI: api, locale: locale, currentLocation: location, input: emptyInput)
+    let result = runAndObserve(sut)
 
     XCTAssertEqual(result.events, [
       .init(time: 0, value: .next(.loading)),
@@ -123,12 +123,12 @@ class WeatherViewModelTests: XCTestCase {
       .init(time: 0, value: .next(.location(mockLocations[0]))),
     ])
 
-    let api: WeatherViewModel.API = { _ in .just(.mock) }
+    let api: API = { _ in .just(.mock) }
 
     var likedWeather: Weather?
     var dislikedWeather: Weather?
 
-    let storage: WeatherViewModel.Storage = { _weather, liked in
+    let storage: Storage = { _weather, liked in
       if liked {
         likedWeather = _weather
       } else {
@@ -136,26 +136,17 @@ class WeatherViewModelTests: XCTestCase {
       }
     }
 
-    let sut = WeatherViewModel(weatherAPI: api, storage: storage, locale: locale, currentLocation: location)
-
     let likeButtonTap = scheduler
       .createColdObservable([.next(100, ())])
       .asDriver(onErrorJustReturn: ())
-
-    likeButtonTap
-      .drive(sut.likeButtonTapped)
-      .disposed(by: disposeBag)
 
     let dislikeButtonTap = scheduler
       .createColdObservable([.next(200, ())])
       .asDriver(onErrorJustReturn: ())
 
-    dislikeButtonTap
-      .drive(sut.dislikeButtonTapped)
-      .disposed(by: disposeBag)
+    _ = stateMachineViewModel(weatherAPI: api, storage: storage, locale: locale, currentLocation: location, input: (likeButtonTap, dislikeButtonTap)).drive()
 
     scheduler.start()
-
     XCTAssertEqual(likedWeather, Weather.mock)
     XCTAssertEqual(dislikedWeather, Weather.mock)
   }
@@ -192,6 +183,7 @@ extension WeatherViewModelState {
     weatherDescription: "Mock weather",
     temperature: "15,1\u{00a0}°C",
     icon: "☀️",
-    location: "Mock location"
+    location: "Mock location",
+    weatherFeedback: .notGiven
   )
 }

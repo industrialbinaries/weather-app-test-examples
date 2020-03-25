@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UIViewController {
   // MARK: Dependencies
 
-  var viewModel: WeatherViewModelType!
+  var viewModel: StateMachineViewModel!
 
   // MARK: Outlets
 
@@ -32,7 +32,15 @@ class ViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    viewModel.state
+    let input: StateMachineViewModelInput = (likeButton.rx.tap.asDriver(), dislikeButton.rx.tap.asDriver())
+
+    let state = viewModel(WeatherAPI.loadWeatherData,
+                          { _, _ in print("saved") },
+                          .current,
+                          LocationProvider.shared.currentLocation,
+                          input)
+
+    state
       .drive(onNext: { [unowned self] state in
         switch state {
         case .loading: self.loading()
@@ -48,14 +56,6 @@ class ViewController: UIViewController {
         case .error: self.error()
         }
       })
-      .disposed(by: disposeBag)
-
-    likeButton.rx.tap
-      .bind(to: viewModel.likeButtonTapped)
-      .disposed(by: disposeBag)
-
-    dislikeButton.rx.tap
-      .bind(to: viewModel.dislikeButtonTapped)
       .disposed(by: disposeBag)
   }
 

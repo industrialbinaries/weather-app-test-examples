@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     let rootVC = UIStoryboard(name: "Main", bundle: nil)
       .instantiateInitialViewController() as! ViewController
-    rootVC.viewModel = WeatherViewModel(currentLocation: LocationProvider.shared.currentLocation)
+    rootVC.viewModel = stateMachineViewModel
 
     window.rootViewController = rootVC
     window.makeKeyAndVisible()

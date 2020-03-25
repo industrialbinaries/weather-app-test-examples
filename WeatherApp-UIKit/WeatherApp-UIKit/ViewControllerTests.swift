@@ -14,13 +14,16 @@ import SnapshotTesting
 import UIKit
 import XCTest
 
-struct MockViewModel: WeatherViewModelType {
-  // Outputs
-  var state: Driver<WeatherViewModelState> = .never()
-
-  // Inputs
-  var likeButtonTapped: PublishSubject<Void> = .init()
-  var dislikeButtonTapped: PublishSubject<Void> = .init()
+let mockStateMachineViewModel_loading: StateMachineViewModel = { _, _, _, _, _ in .just(.loading) }
+let mockStateMachineViewModel_error: StateMachineViewModel = { _, _, _, _, _ in .just(.error) }
+let mockStateMachineViewModel_loaded: StateMachineViewModel = { _, _, _, _, _ in
+  .just(.loaded(
+    weatherDescription: "Amazingly sunny",
+    temperature: "112 °C",
+    icon: "🚀",
+    location: "Virtual",
+    weatherFeedback: .notGiven
+  ))
 }
 
 class ViewControllerTests: XCTestCase {
@@ -43,48 +46,49 @@ class ViewControllerTests: XCTestCase {
   }
 
   func testLoadingData() {
-    let vm = MockViewModel(state: .just(.loading))
-    sut.viewModel = vm
-
+    sut.viewModel = mockStateMachineViewModel_loading
     sut.view.layer.speed = 0 // to stop the spinner
 
     assertSnapshot(matching: sut, as: .image(on: .iPhoneX))
   }
 
   func testLoadedData() {
-    let vm = MockViewModel(state: .just(.loaded(
-      weatherDescription: "Amazingly sunny",
-      temperature: "112 °C",
-      icon: "🚀",
-      location: "Virtual"
-    )))
-    sut.viewModel = vm
+    sut.viewModel = mockStateMachineViewModel_loaded
 
     assertSnapshot(matching: sut, as: .image(on: .iPhoneX))
   }
 
   func testLikeDislikeButtonsTap() {
-    let vm = MockViewModel()
-
-    sut.viewModel = vm
+    var feedbackResult: WeatherFeedback = .notGiven
+    let viewModel: StateMachineViewModel = { _, _, _, _, input in
+      Driver.merge([
+        input.likeButtonTapped.map { true },
+        input.dislikeButtonTapped.map { false },
+      ])
+        .scan(.notGiven) { (previousValue, like) -> WeatherFeedback in
+          like ? .like : .dislike
+        }
+        .do(onNext: { userFeedback in
+          feedbackResult = userFeedback
+      })
+        .map { _ -> WeatherViewModelState in
+          .loading
+        }
+        .asDriver(onErrorJustReturn: .loading)
+    }
+    XCTAssertEqual(.notGiven, feedbackResult)
+    sut.viewModel = viewModel
     sut.loadViewIfNeeded()
 
-    let like = scheduler.createObserver(Void.self)
-    let dislike = scheduler.createObserver(Void.self)
-
-    vm.likeButtonTapped.bind(to: like).disposed(by: disposeBag)
-    vm.dislikeButtonTapped.bind(to: dislike).disposed(by: disposeBag)
-
     sut.dislikeButton.sendActions(for: .touchUpInside)
-    sut.likeButton.sendActions(for: .touchUpInside)
+    XCTAssertEqual(.dislike, feedbackResult)
 
-    XCTAssertEqual(like.events.count, 1)
-    XCTAssertEqual(dislike.events.count, 1)
+    sut.likeButton.sendActions(for: .touchUpInside)
+    XCTAssertEqual(.like, feedbackResult)
   }
 
   func testErrorState() {
-    let vm = MockViewModel(state: .just(.error))
-    sut.viewModel = vm
+    sut.viewModel = mockStateMachineViewModel_error
     assertSnapshot(matching: sut, as: .image(on: .iPhoneX))
   }
 }
